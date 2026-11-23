@@ -1,0 +1,14 @@
+.idea/
+target/
+*.iml
+sql
+.gitignore
+.env.sample
+docker-compose.yml
+docker-compose.override.yml
+README.md
+Dockerfile
+scripts/
+ci-templates/
+.gitlab/
+db/

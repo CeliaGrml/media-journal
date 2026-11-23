@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:18.7-alpine3.24
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_DB=${DATABASE_NAME}
+    networks:
+      - closed
+    volumes:
+      - db-data:/var/lib/postgresql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "sh -c 'pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}'",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  app:
+    image: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:${APP_TAG}
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=${DATABASE_URL_FOR_DOCKER}
+    ports:
+      - "8090:8080"
+    networks:
+      - closed
+      - open
+    depends_on:
+      db:
+        condition: service_healthy
+
+networks:
+  closed:
+    internal: true
+  open:
+
+volumes:
+  db-data:

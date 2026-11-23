@@ -1,0 +1,11 @@
+@if (exemplesService.exemples.isLoading()) {
+  <p>Loading...</p>
+} @else if (exemplesService.exemples.error()) {
+  <p>Request failed ({{ exemplesService.exemples.statusCode() }})</p>
+  <button (click)="exemplesService.exemples.reload()">Retry</button>
+}
+@else if (exemplesService.exemples.value() !== undefined) {
+  @for (exemple of exemplesService.exemples.value()!.content; track exemple.id) {
+    <p>{{exemple.name}}</p>
+  }
+}

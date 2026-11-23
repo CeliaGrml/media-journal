@@ -1,0 +1,27 @@
+services:
+  db:
+    networks:
+      - open
+
+#  app:
+#    build:
+#      dockerfile: tapi/Dockerfile
+#    image: app-local
+#    networks:
+#      - open
+
+  app:
+    image: alpine:latest
+    command: echo "do nothing"
+    restart: "no"
+
+
+  db-webadmin:
+    image: adminer
+    restart: on-failure
+    ports:
+      - "18080:8080"
+    depends_on:
+      - db
+    networks:
+      - open

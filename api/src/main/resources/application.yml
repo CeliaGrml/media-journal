@@ -1,0 +1,21 @@
+spring:
+  config:
+    import: optional:file:../.env[.properties]
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/}${DATABASE_NAME:db}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    validate-on-migrate: true
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+logging:
+  level:
+    root: warn
+  pattern:
+    console: '%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger.%M - %msg%n'
