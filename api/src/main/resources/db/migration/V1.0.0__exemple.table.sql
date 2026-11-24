@@ -1,7 +1,0 @@
-CREATE TABLE public.exemple
-(
-  id      BIGSERIAL PRIMARY KEY,
-  name    VARCHAR NOT NULL
-);
-
-ALTER SEQUENCE exemple_id_seq RESTART 100000 INCREMENT BY 50;
